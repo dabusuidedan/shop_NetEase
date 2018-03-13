@@ -96,7 +96,7 @@ public class ContentController {
 	
 	@RequestMapping("/buy")
 	@ResponseBody
-    public JsonUtil buy(@RequestBody List<Temp> temps,HttpServletRequest request,HttpServletResponse response){	
+    public JsonUtil<Integer> buy(@RequestBody List<Temp> temps,HttpServletRequest request,HttpServletResponse response){	
 		// ModelAndView mv = new ModelAndView("redirect:/home/account.action");
 		int i=0;
         for(Temp t : temps){
@@ -115,7 +115,7 @@ public class ContentController {
             i++;
         }
         //mv.setViewName("account");
-        JsonUtil j=new JsonUtil();
+        JsonUtil<Integer> j=new JsonUtil<Integer>();
         j.setCode(200);     
         j.setMessage(String.valueOf(i));
         return j;
@@ -177,8 +177,8 @@ public class ContentController {
 	
 	@RequestMapping("/upload")
 	@ResponseBody
-    public JsonUtil upload(MultipartFile file,HttpServletRequest request,HttpServletResponse response,HttpSession session){	
-		JsonUtil json=new JsonUtil();
+    public JsonUtil<String> upload(MultipartFile file,HttpServletRequest request,HttpServletResponse response,HttpSession session){	
+		JsonUtil<String> json=new JsonUtil<String>();
 		if(!file.isEmpty()){  
 			String fileName=file.getOriginalFilename();// 文件原名称
 			String pathRoot = request.getSession().getServletContext().getRealPath("");
