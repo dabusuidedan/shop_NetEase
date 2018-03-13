@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.UserDao">
+
+<resultMap id="UserResultMap" type="com.shop.entity.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_flag" property="userFlag" jdbcType="INTEGER" />
+  </resultMap>
+    <select id="findByUsername" parameterType="string" resultMap="UserResultMap">
+        SELECT * FROM userinfo WHERE user_name=#{userName}
+    </select>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.ContentDao">
+
+<resultMap id="ContentResultMap" type="com.shop.entity.Content" >
+    <id column="content_id" property="contentId" jdbcType="INTEGER" />
+    <result column="content_title" property="contentTitle" jdbcType="VARCHAR" />
+    <result column="content_image" property="contentImage" jdbcType="VARCHAR" />
+    <result column="content_price" property="contentPrice" jdbcType="DOUBLE" />
+    <result column="content_abstract" property="contentAbstract" jdbcType="VARCHAR" />
+    <result column="content_body" property="contentBody" jdbcType="VARCHAR" />
+    <result column="content_flag" property="contentFlag" jdbcType="INTEGER" />
+  </resultMap>
+    <select id="findAll"  resultMap="ContentResultMap">
+        SELECT * FROM content 
+    </select>
+    
+    <select id="findNotBuy"  resultMap="ContentResultMap">
+        SELECT * FROM content where content_flag=0
+    </select>
+    
+     <select id="findById"   parameterType="int" resultMap="ContentResultMap">
+        SELECT * FROM content where content_id=#{id}
+    </select>
+    
+    <update id="update" parameterType="int">
+		update content	set
+			content_flag=1
+		where
+			content_id=#{id}		
+    </update>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="contentId" parameterType="Content">
+    insert into content (content_title, content_image, content_price, content_abstract,content_body,content_flag) 
+    values (#{contentTitle,jdbcType=VARCHAR}, #{contentImage,jdbcType=VARCHAR}, #{contentPrice,jdbcType=DOUBLE}, 
+      #{contentAbstract,jdbcType=VARCHAR},#{contentBody,jdbcType=VARCHAR},#{contentFlag,jdbcType=INTEGER})
+    </insert>
+    
+    <update id="updateByCon" parameterType="Content">
+		update content	set
+			content_title=#{contentTitle}, 
+			content_image=#{contentImage}, 
+			content_price=#{contentPrice}, 
+			content_abstract=#{contentAbstract},
+			content_body=#{contentBody}
+		where
+			content_id=#{contentId}		
+    </update>
+    
+    <delete id="delete"  parameterType="int">
+    delete from content where content_id=#{id} 
+   </delete>
+</mapper>

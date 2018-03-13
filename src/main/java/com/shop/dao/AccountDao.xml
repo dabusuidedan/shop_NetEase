@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.AccountDao">
+
+<resultMap id="AccountResultMap" type="com.shop.entity.Account" >
+    <id column="account_id" property="accountId" jdbcType="INTEGER" />
+    <result column="account_title" property="accountTitle" jdbcType="VARCHAR" />
+    <result column="account_image" property="accountImage" jdbcType="VARCHAR" />
+    <result column="account_time" property="accountTime" jdbcType="TIMESTAMP" />
+    <result column="account_price" property="accountPrice" jdbcType="DOUBLE" />
+    <result column="account_num" property="accountNum" jdbcType="INTEGER" />
+    <result column="account_contentid" property="accountContentId" jdbcType="INTEGER" />
+  </resultMap>
+    <select id="findByContentId" parameterType="int" resultMap="AccountResultMap">
+        SELECT * FROM account WHERE account_contentid=#{id}
+    </select>
+    
+    <select id="findAll" resultMap="AccountResultMap">
+        SELECT * FROM account
+    </select>
+    
+    <insert id="insert" parameterType="Account">
+    insert into account (account_title, account_image, account_time, account_price, account_num,account_contentid) 
+    values (#{accountTitle,jdbcType=VARCHAR}, #{accountImage,jdbcType=VARCHAR}, #{accountTime,jdbcType=TIMESTAMP}, #{accountPrice,jdbcType=DOUBLE}, 
+      #{accountNum,jdbcType=INTEGER},#{accountContentId,jdbcType=INTEGER})
+  </insert>
+  
+</mapper>
